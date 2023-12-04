@@ -16,11 +16,8 @@ public class User {
     @NotBlank
     @Pattern(regexp = "\\w+")
     private String login;
-    @NotNull
-    @NotBlank
     private String name;
     @NotNull
-    @NotBlank
     @PastOrPresent
     private LocalDate birthday;
 
