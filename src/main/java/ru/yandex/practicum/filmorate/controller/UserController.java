@@ -44,7 +44,7 @@ public class UserController {
         }
 
         if (!users.containsKey(user.getId())) {
-            throw  new ValidationException("[eyq");
+            throw  new ValidationException("Пользователь " + user.getEmail() + "не найден в списке.");
         }
         log.info(user.toString());
         users.put(user.getId(), user);

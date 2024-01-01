@@ -15,7 +15,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-
     private int id = 0;
     private final Map<Integer, Film> films = new HashMap<>();
 
@@ -45,7 +44,7 @@ public class FilmController {
             throw new ValidationException("Ошибка валидации данных фильма.");
         }
         if (!films.containsKey(film.getId())) {
-            throw new ValidationException("[eyq");
+            throw new ValidationException("Фильм " + film.getName() + "не найден в списке.");
         }
         log.info(film.toString());
         films.put(film.getId(), film);
