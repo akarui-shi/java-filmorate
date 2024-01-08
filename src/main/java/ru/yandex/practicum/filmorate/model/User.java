@@ -4,21 +4,21 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
-
 import java.time.LocalDate;
 
 @Data
 @Builder
-public class Film {
+public class User {
     private int id;
+    @Email
     @NotBlank
+    private String email;
+    @NotBlank
+    @Pattern(regexp = "\\w+")
+    private String login;
     private String name;
-    @NotBlank
-    @Size(max = 200)
-    private String description;
     @NotNull
-    private LocalDate releaseDate;
-    @NotNull
-    @Positive
-    private int duration;
+    @PastOrPresent
+    private LocalDate birthday;
+
 }
