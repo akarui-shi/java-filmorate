@@ -1,5 +1,8 @@
 package ru.yandex.practicum.filmorate.exception;
 
+import lombok.Getter;
+
+@Getter
 public class ErrorResponse {
     String error;
     String description;
@@ -9,11 +12,4 @@ public class ErrorResponse {
         this.description = description;
     }
 
-    public String getError() {
-        return error;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

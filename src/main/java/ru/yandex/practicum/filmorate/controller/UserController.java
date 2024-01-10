@@ -70,11 +70,6 @@ public class UserController {
     public Collection<User> getCommonFriends(@PathVariable(value = "id") int id,
                                        @PathVariable(value = "otherId") int otherId) {
         log.info(userService.getCommonFriends(id, otherId).toString());
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(userService.getCommonFriends(id, otherId));
-        System.out.println("ЧТО ЗА ХУЙНЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ");
         return userService.getCommonFriends(id, otherId);
     }
 
