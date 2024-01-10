@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
@@ -44,7 +45,7 @@ class FilmorateApplicationTests {
 				.duration(100)
 				.build();
 
-		Assertions.assertThrows(ValidationException.class, () -> filmController.put(film));
+		Assertions.assertThrows(NotFoundException.class, () -> filmController.put(film));
 
 		filmController.create(film);
 		Assertions.assertDoesNotThrow(() -> filmController.put(film));
@@ -71,7 +72,7 @@ class FilmorateApplicationTests {
 				.birthday(LocalDate.of(2002, 9, 1))
 				.build();
 
-		Assertions.assertThrows(ValidationException.class, () -> userController.put(user));
+		Assertions.assertThrows(NotFoundException.class, () -> userController.put(user));
 
 		userController.create(user);
 		Assertions.assertDoesNotThrow(() -> userController.put(user));
