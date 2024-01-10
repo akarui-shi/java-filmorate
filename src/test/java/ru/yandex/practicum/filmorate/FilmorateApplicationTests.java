@@ -6,9 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.FilmServiceImpl;
+import ru.yandex.practicum.filmorate.service.UserServiceImpl;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
@@ -16,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class FilmorateApplicationTests {
-	private final FilmController filmController = new FilmController();
-	private final UserController userController = new UserController();
+	private final FilmController filmController = new FilmController(new FilmServiceImpl(new InMemoryFilmStorage()));
+	private final UserController userController = new UserController(new UserServiceImpl(new InMemoryUserStorage()));
 
 	@Test
 	public void testCreateFilmReleaseDate() {
@@ -40,7 +45,7 @@ class FilmorateApplicationTests {
 				.duration(100)
 				.build();
 
-		Assertions.assertThrows(ValidationException.class, () -> filmController.put(film));
+		Assertions.assertThrows(NotFoundException.class, () -> filmController.put(film));
 
 		filmController.create(film);
 		Assertions.assertDoesNotThrow(() -> filmController.put(film));
@@ -67,7 +72,7 @@ class FilmorateApplicationTests {
 				.birthday(LocalDate.of(2002, 9, 1))
 				.build();
 
-		Assertions.assertThrows(ValidationException.class, () -> userController.put(user));
+		Assertions.assertThrows(NotFoundException.class, () -> userController.put(user));
 
 		userController.create(user);
 		Assertions.assertDoesNotThrow(() -> userController.put(user));
