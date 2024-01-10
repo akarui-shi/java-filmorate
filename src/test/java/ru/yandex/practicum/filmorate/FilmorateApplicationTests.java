@@ -9,6 +9,10 @@ import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.FilmServiceImpl;
+import ru.yandex.practicum.filmorate.service.UserServiceImpl;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
@@ -16,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class FilmorateApplicationTests {
-	private final FilmController filmController = new FilmController();
-	private final UserController userController = new UserController();
+	private final FilmController filmController = new FilmController(new FilmServiceImpl(new InMemoryFilmStorage()));
+	private final UserController userController = new UserController(new UserServiceImpl(new InMemoryUserStorage()));
 
 	@Test
 	public void testCreateFilmReleaseDate() {
