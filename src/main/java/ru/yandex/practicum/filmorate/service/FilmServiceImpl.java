@@ -3,9 +3,11 @@ package ru.yandex.practicum.filmorate.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -26,11 +28,17 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film create(Film film) {
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+            throw new ValidationException("Ошибка валидации данных фильма.");
+        }
         return inMemoryFilmStorage.create(film);
     }
 
     @Override
     public Film put(Film film) {
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+            throw new ValidationException("Ошибка валидации данных фильма.");
+        }
         return inMemoryFilmStorage.put(film);
     }
 

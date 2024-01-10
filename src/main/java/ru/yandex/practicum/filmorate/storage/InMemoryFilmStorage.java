@@ -22,9 +22,6 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film create(Film film) {
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("Ошибка валидации данных фильма.");
-        }
         id++;
         film.setId(id);
         films.put(id, film);
@@ -33,9 +30,6 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film put(Film film) {
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("Ошибка валидации данных фильма.");
-        }
         if (!films.containsKey(film.getId())) {
             throw new NotFoundException("Фильм " + film.getName() + " не найден в списке.");
         }
