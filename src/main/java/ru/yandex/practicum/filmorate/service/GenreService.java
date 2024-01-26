@@ -6,5 +6,6 @@ import java.util.Collection;
 
 public interface GenreService {
     Genre get(int id);
+
     Collection<Genre> findAll();
 }

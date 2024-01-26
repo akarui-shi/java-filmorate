@@ -15,6 +15,7 @@ import java.util.Collection;
 public class GenreServiceImpl implements GenreService {
 
     private final GenreDbStorage genreStorage;
+
     @Override
     public Genre get(int id) {
         return genreStorage.get(id);

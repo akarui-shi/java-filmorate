@@ -14,6 +14,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class MpaServiceImpl implements MpaService {
     private final MpaDbStorage mpaStorage;
+
     @Override
     public Mpa get(int id) {
         return mpaStorage.get(id);

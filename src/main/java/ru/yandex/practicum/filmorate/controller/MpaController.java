@@ -25,7 +25,7 @@ public class MpaController {
     }
 
     @GetMapping
-    public Collection<Mpa> findAll(){
+    public Collection<Mpa> findAll() {
         log.info("Количество MPA: {}", mpaService.findAll().size());
         return mpaService.findAll();
     }

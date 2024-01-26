@@ -8,5 +8,6 @@ import java.util.Collection;
 @Component
 public interface MpaStorage {
     Mpa get(int id);
+
     Collection<Mpa> findAll();
 }
