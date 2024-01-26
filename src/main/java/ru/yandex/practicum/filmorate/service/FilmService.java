@@ -14,9 +14,9 @@ public interface FilmService {
 
     Film get(int id);
 
-    Film setLike(int id, int userId);
+    void setLike(int id, int userId);
 
-    Film removeLike(int filmId, int userId);
+    void removeLike(int filmId, int userId);
 
     Collection<Film> getTopFilms(int count);
 
