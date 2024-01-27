@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.service.MpaService;
 import ru.yandex.practicum.filmorate.storage.impl.MpaDbStorage;
@@ -17,11 +18,18 @@ public class MpaServiceImpl implements MpaService {
 
     @Override
     public Mpa get(int id) {
-        return mpaStorage.get(id);
+        if (mpaStorage.isRegistered(id)) {
+            log.info("Mpa с id = {} возвращён.", id);
+            return mpaStorage.get(id);
+        } else {
+            throw new NotFoundException("Mpa с id = " + id + " не найден в списке.");
+        }
     }
 
     @Override
     public Collection<Mpa> findAll() {
-        return mpaStorage.findAll();
+        Collection<Mpa> mpa =  mpaStorage.findAll();
+        log.info("Текущее количество mpa: {}. Список возвращён.", mpa.size());
+        return mpa;
     }
 }

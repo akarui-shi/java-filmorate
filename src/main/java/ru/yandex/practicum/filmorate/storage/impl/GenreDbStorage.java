@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.storage.GenreStorage;
@@ -23,14 +22,11 @@ public class GenreDbStorage implements GenreStorage {
     @Override
     public Genre get(int genreId) {
         SqlRowSet rs = jdbcTemplate.queryForRowSet("SELECT * FROM GENRES WHERE GENRE_ID = ?", genreId);
-        if (rs.next()) {
-            return new Genre(
-                    rs.getInt("GENRE_ID"),
-                    rs.getString("GENRE_NAME")
-            );
-        } else {
-            throw new NotFoundException("Жанр с id = " + genreId + " не найден в списке.");
-        }
+        rs.next();
+        return new Genre(
+                rs.getInt("GENRE_ID"),
+                rs.getString("GENRE_NAME")
+        );
     }
 
     @Override
@@ -45,17 +41,6 @@ public class GenreDbStorage implements GenreStorage {
             genres.add(genre);
         }
         return genres;
-    }
-
-    @Override
-    public void reloadGenres(Film film) {
-        deleteFilmGenre(film);
-        addFilmGenre(film);
-    }
-
-    @Override
-    public void deleteFilmGenre(Film film) {
-        jdbcTemplate.update("DELETE FROM FILM_GENRES WHERE FILM_ID = ?", film.getId());
     }
 
     @Override
@@ -76,5 +61,11 @@ public class GenreDbStorage implements GenreStorage {
                 }
             });
         }
+    }
+
+    public boolean isRegistered(int genreId) {
+        String sqlQuery = "SELECT * FROM GENRES WHERE GENRE_ID = ?";
+        SqlRowSet genreRow = jdbcTemplate.queryForRowSet(sqlQuery, genreId);
+        return genreRow.next();
     }
 }

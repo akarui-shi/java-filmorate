@@ -10,9 +10,5 @@ public interface GenreStorage {
 
     Collection<Genre> findAll();
 
-    void reloadGenres(Film film);
-
-    void deleteFilmGenre(Film film);
-
     void addFilmGenre(Film film);
 }
